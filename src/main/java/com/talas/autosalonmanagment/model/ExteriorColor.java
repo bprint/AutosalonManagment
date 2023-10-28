@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "fuel")
-public class Fuel extends BaseEntity {
-
+@Table(name = "exterior_color")
+public class ExteriorColor extends BaseEntity {
 }

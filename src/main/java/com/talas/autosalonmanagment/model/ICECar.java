@@ -8,35 +8,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
 @Table(name = "ICECar")
-public class ICECar extends Car {
+public class ICECar extends Car {       //ICE - ДВС (двигатель внутреннего сгорания)
 
     @ManyToOne
-    @JoinColumn(name = "fuel_id")
+    @JoinColumn(name = "exterior_color_id")
     @NotNull
-    private Fuel fuel;
-
-    @NotNull
-    final String engineValue;
-
+    private ExteriorColor exteriorColor;
 
     @ManyToOne
-    @JoinColumn(name = "gearbox_id")
-    private Gearbox gearbox;
-
-    public Gearbox getGearbox() {
-        return gearbox;
-    }
-
-    public void setGearbox(Gearbox gearbox) {
-        this.gearbox = gearbox;
-    }
-
-    public Fuel getFuel() {
-        return fuel;
-    }
-
-    public void setFuel(Fuel fuel) {
-        this.fuel = fuel;
-    }
+    @JoinColumn(name = "interior_color_id")
+    @NotNull
+    private InteriorColor interiorColor;
 
 }

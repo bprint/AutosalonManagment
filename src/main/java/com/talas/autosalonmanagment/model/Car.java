@@ -12,7 +12,8 @@ public abstract class Car extends BaseEntity {
     @NotNull
     final String VIN;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "engineNumber")
+    @NotNull
+    final String engineNumber;
 
 }
