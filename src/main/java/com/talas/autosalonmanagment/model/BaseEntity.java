@@ -12,9 +12,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter @Setter @FieldDefaults(level = AccessLevel.PRIVATE)
 @MappedSuperclass @EntityListeners(AuditingEntityListener.class)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public abstract class BaseEntity {
 
     @Id

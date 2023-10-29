@@ -1,5 +1,7 @@
 package com.talas.autosalonmanagment.model;
 
+import com.talas.autosalonmanagment.model.reference.Fuel;
+import com.talas.autosalonmanagment.model.reference.Gearbox;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -7,17 +9,19 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
-@Table(name = "ICECar")
-public class ICECar extends Car {       //ICE - ДВС (двигатель внутреннего сгорания)
+@Table(name = "icecar")
+public class ICECar extends Car {       //ICE - internal combustion engine
 
     @ManyToOne
-    @JoinColumn(name = "exterior_color_id")
+    @JoinColumn(name = "fuel_id")
     @NotNull
-    private ExteriorColor exteriorColor;
+    final Fuel fuel;                    //Type of fuel used
 
     @ManyToOne
-    @JoinColumn(name = "interior_color_id")
+    @JoinColumn(name = "gearbox_id")
     @NotNull
-    private InteriorColor interiorColor;
+    final Gearbox gearbox;              //Type of transmission used
 
+    @NotNull
+    final double engineVolume;
 }

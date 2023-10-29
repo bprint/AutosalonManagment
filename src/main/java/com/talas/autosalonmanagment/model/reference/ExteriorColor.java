@@ -1,5 +1,6 @@
-package com.talas.autosalonmanagment.model;
+package com.talas.autosalonmanagment.model.reference;
 
+import com.talas.autosalonmanagment.model.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
