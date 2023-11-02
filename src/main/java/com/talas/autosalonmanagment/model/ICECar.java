@@ -1,27 +1,24 @@
 package com.talas.autosalonmanagment.model;
 
-import com.talas.autosalonmanagment.model.reference.Fuel;
-import com.talas.autosalonmanagment.model.reference.Gearbox;
+import com.talas.autosalonmanagment.model.reference.Charging;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
-@Table(name = "icecar")
-public class ICECar extends Car {       //ICE - internal combustion engine
+@NoArgsConstructor @AllArgsConstructor
+@Getter @Setter
+public class ICECar extends Car implements Serializable {       //ICE - internal combustion engine
 
-    @ManyToOne
-    @JoinColumn(name = "fuel_id")
-    @NotNull
-    final Fuel fuel;                    //Type of fuel used
+    @NotBlank(message = "Field 'engineVolume' should not be empty")
+    private String engineVolume;
 
-    @ManyToOne
-    @JoinColumn(name = "gearbox_id")
-    @NotNull
-    final Gearbox gearbox;              //Type of transmission used
-
-    @NotNull
-    final double engineVolume;
+   @OneToMany(mappedBy = "icecar")
+    private List<Charging> chargings;    //Dates of all battery charges
 }

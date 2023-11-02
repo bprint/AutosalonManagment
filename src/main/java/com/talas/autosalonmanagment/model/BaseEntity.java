@@ -4,12 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter @Setter @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -31,8 +34,10 @@ public abstract class BaseEntity {
     LocalDateTime updatedAt;
 
     @Column(name = "name")
-    private String name;
+    //@NotBlank(message = "Name should non be empty")
+    @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+    String name;
 
     @Builder.Default
-    private Boolean isEnabled = true;
+    Boolean isEnabled = true;
 }

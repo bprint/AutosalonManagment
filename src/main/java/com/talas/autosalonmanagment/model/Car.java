@@ -1,82 +1,33 @@
 package com.talas.autosalonmanagment.model;
 
 import com.talas.autosalonmanagment.model.reference.*;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDate;
 
-@NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
-@Getter @Setter
+import java.io.Serializable;
+import java.util.List;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@NoArgsConstructor(force = true)
+@AllArgsConstructor
+@Getter @Setter @Table(name = "car")
 public abstract class Car extends BaseEntity {
 
-    @Column(name = "vin")
-    @NotNull
-    final String VIN;                   //VIN code
+    @NotBlank(message = "Field 'VIN' should not be empty")
+    @Size(min = 17, max = 17, message = "The number of characters in the VIN must be exactly 17!")
+    private String vin;
 
-    @Column(name = "engineNumber")
-    @NotNull
-    final String engineNumber;
+    @NotBlank(message = "Field 'brand' should not be empty")
+    private String brand;
 
-    @ManyToOne
-    @JoinColumn(name = "exterior_color_id")
-    @NotNull
-    final ExteriorColor exteriorColor;
+    @NotBlank(message = "Field 'carModel' should not be empty")
+    private String carModel;
 
-    @ManyToOne
-    @JoinColumn(name = "interior_color_id")
-    @NotNull
-    final InteriorColor interiorColor;
-
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
-    @NotNull
-    final Brand brand;                  //Haval, Tank etc.
-
-    @ManyToOne
-    @JoinColumn(name = "modelauto_id")
-    @NotNull
-    final ModelAuto modelAuto;          //H6, Dargo etc.
-
-    @ManyToOne
-    @JoinColumn(name = "spec_id")
-    @NotNull
-    final Spec spec;                    //Elite, Premium, TechPlus
-
-    @NotNull
-    final LocalDate arrivedAt;          //Car arrival day
-
-    @NotNull
-    final String ttnNumber;             //Waybill number
-
-    @NotNull
-    final LocalDate ttnDate;            //Waybill date
-
-    boolean isReadyForSale;             //Pre-sale preparation status
-
-    boolean hasDefects;                 //Has car any defects upon arrival
-
-    DefectsUponArrival defectsUponArrival;  //List of defects upon arrival
-
-    @ManyToOne
-    @JoinColumn(name = "carlocation_id")
-    @NotNull
-    CarLocation carLocation;            //Storage, showroom etc.
-
-    int NumberOfWashes;                 //How many times the car has been washed
-
-    @ManyToOne
-    @JoinColumn(name = "extras_id")
-    Extras extras;                      //Installed extras
-
-    @OneToOne
-    @JoinColumn(name = "battery_charging_id")
-    BatteryCharging batteryCharging;    //Dates of all battery charges
 }
