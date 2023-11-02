@@ -21,8 +21,8 @@ public class ICECarsService {
         return icecarsRepository.findAll();
     }
 
-    public ICECar findOne(int id) {
-        Optional<ICECar> foundCar = icecarsRepository.findById(id);
+    public ICECar findOne(String vin) {
+        Optional<ICECar> foundCar = icecarsRepository.findByVin(vin);
         return foundCar.orElseThrow(NotFoundException::new);
     }
 

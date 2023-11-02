@@ -3,10 +3,7 @@ package com.talas.autosalonmanagment.controller;
 import com.talas.autosalonmanagment.dto.ICECarDTO;
 import com.talas.autosalonmanagment.model.ICECar;
 import com.talas.autosalonmanagment.services.ICECarsService;
-import com.talas.autosalonmanagment.util.CarErrorResponse;
-import com.talas.autosalonmanagment.util.CarNotCreatedException;
-import com.talas.autosalonmanagment.util.NotFoundException;
-import com.talas.autosalonmanagment.util.ICECarValidator;
+import com.talas.autosalonmanagment.util.*;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -19,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.talas.autosalonmanagment.util.ErrorsUtil.returnErrorsToClient;
 
 @RestController
 @AllArgsConstructor
@@ -33,9 +32,9 @@ public class ICECarsController {
         return icecarsService.findAll().stream().map(this::convertToICECarDTO).collect(Collectors.toList());
     }
 
-    @GetMapping("/{id}")
-    public ICECarDTO getICECar(@PathVariable("id") int id) {
-        return convertToICECarDTO(icecarsService.findOne(id));
+    @GetMapping("/{vin}")
+    public ICECarDTO getICECar(@PathVariable("vin") String vin) {
+        return convertToICECarDTO(icecarsService.findOne(vin));
     }
 
     @PostMapping
@@ -44,14 +43,7 @@ public class ICECarsController {
         icecarValidator.validate(icecarToAdd, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            StringBuilder errorMsg = new StringBuilder();
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for (FieldError error : errors) {
-                errorMsg.append(error.getField())
-                        .append(" - ").append(error.getDefaultMessage() == null ? error.getCode() : error.getDefaultMessage())
-                        .append(";");
-            }
-            throw new CarNotCreatedException(errorMsg.toString());
+            returnErrorsToClient(bindingResult);
         }
 
         icecarsService.save(convertToICECar(icecarDTO));
@@ -68,7 +60,7 @@ public class ICECarsController {
     }
 
     @ExceptionHandler
-    private ResponseEntity<CarErrorResponse> handleException(CarNotCreatedException e) {
+    private ResponseEntity<CarErrorResponse> handleException(CarException e) {
         CarErrorResponse response = new CarErrorResponse(
                 e.getMessage(),
                 System.currentTimeMillis());
