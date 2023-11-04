@@ -2,7 +2,7 @@ package com.talas.autosalonmanagment.controller;
 
 import com.talas.autosalonmanagment.dto.reference.ChargingDTO;
 import com.talas.autosalonmanagment.model.reference.Charging;
-import com.talas.autosalonmanagment.services.ChargingsService;
+import com.talas.autosalonmanagment.services.impl.ChargingsServiceImpl;
 import com.talas.autosalonmanagment.util.CarErrorResponse;
 import com.talas.autosalonmanagment.util.CarException;
 import com.talas.autosalonmanagment.util.ChargingValidator;
@@ -23,7 +23,7 @@ public class ChargingsController {
 
     private final ModelMapper modelMapper;
     private final ChargingValidator chargingValidator;
-    private final ChargingsService chargingsService;
+    private final ChargingsServiceImpl chargingsService;
 
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> add(@RequestBody @Valid ChargingDTO chargingDTO,

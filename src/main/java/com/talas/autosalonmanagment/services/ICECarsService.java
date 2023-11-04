@@ -1,37 +1,20 @@
 package com.talas.autosalonmanagment.services;
 
-import com.talas.autosalonmanagment.model.Car;
 import com.talas.autosalonmanagment.model.ICECar;
-import com.talas.autosalonmanagment.repositories.ICECarsRepository;
-import com.talas.autosalonmanagment.util.NotFoundException;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@AllArgsConstructor
-public class ICECarsService {
+public interface ICECarsService {
+    List<ICECar> findAll();
 
-    private final ICECarsRepository icecarsRepository;
+    ICECar findOne(String vin);
 
-    public List<ICECar> findAll() {
-        return icecarsRepository.findAll();
-    }
+    Optional<ICECar> findByVin(String vin);
 
-    public ICECar findOne(String vin) {
-        Optional<ICECar> foundCar = icecarsRepository.findByVin(vin);
-        return foundCar.orElseThrow(NotFoundException::new);
-    }
+    void save(ICECar icecar);
 
-    public Optional<ICECar> findByVin(String vin) {
-        return icecarsRepository.findByVin(vin);
-    }
+    void update(String vin, String changedVIN, ICECar icecar);
 
-    @Transactional
-    public void save(ICECar icecar) {
-        icecarsRepository.save(icecar);
-    }
+    void delete(String vin);
 }

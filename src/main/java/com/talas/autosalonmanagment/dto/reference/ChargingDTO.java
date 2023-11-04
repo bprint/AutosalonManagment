@@ -19,8 +19,4 @@ public class ChargingDTO {
     private LocalDate chargeDate;
 
     private ICECar icecar;
-
-//    @NotBlank(message = "Field 'VIN' should not be empty")
-//    @Size(min = 17, max = 17, message = "The number of characters in the VIN must be exactly 17!")
-//    private String vin;
 }
