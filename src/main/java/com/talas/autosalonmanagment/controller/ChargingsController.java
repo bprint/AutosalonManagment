@@ -2,6 +2,7 @@ package com.talas.autosalonmanagment.controller;
 
 import com.talas.autosalonmanagment.dto.reference.ChargingDTO;
 import com.talas.autosalonmanagment.model.reference.Charging;
+import com.talas.autosalonmanagment.services.ChargingsService;
 import com.talas.autosalonmanagment.services.impl.ChargingsServiceImpl;
 import com.talas.autosalonmanagment.util.CarErrorResponse;
 import com.talas.autosalonmanagment.util.CarException;
@@ -16,6 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/bc")
@@ -25,7 +29,13 @@ public class ChargingsController {
     private final ChargingValidator chargingValidator;
     private final ChargingsServiceImpl chargingsService;
 
-    @PostMapping("/add")
+    @GetMapping
+    public List<ChargingDTO> getChargings() {
+
+        return chargingsService.findAll().stream().map(this::convertToChargingDTO).collect(Collectors.toList());
+    }
+
+    @PostMapping
     public ResponseEntity<HttpStatus> add(@RequestBody @Valid ChargingDTO chargingDTO,
                                           BindingResult bindingResult) {
         Charging chargingToAdd = convertToCharging(chargingDTO);
@@ -47,5 +57,9 @@ public class ChargingsController {
 
     private Charging convertToCharging(ChargingDTO chargingDTO) {
         return modelMapper.map(chargingDTO, Charging.class);
+    }
+
+    private ChargingDTO convertToChargingDTO(Charging charging) {
+        return modelMapper.map(charging, ChargingDTO.class);
     }
 }

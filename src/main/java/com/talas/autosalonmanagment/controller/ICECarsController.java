@@ -2,7 +2,7 @@ package com.talas.autosalonmanagment.controller;
 
 import com.talas.autosalonmanagment.dto.ICECarDTO;
 import com.talas.autosalonmanagment.model.ICECar;
-import com.talas.autosalonmanagment.services.impl.ICECarsServiceImpl;
+import com.talas.autosalonmanagment.services.ICECarsService;
 import com.talas.autosalonmanagment.util.*;
 
 import jakarta.validation.Valid;
@@ -22,7 +22,7 @@ import static com.talas.autosalonmanagment.util.ErrorsUtil.returnErrorsToClient;
 @AllArgsConstructor
 @RequestMapping("/cars")
 public class ICECarsController {
-    private final ICECarsServiceImpl icecarsService;
+    private final ICECarsService icecarsService;
     private final ModelMapper modelMapper;
     private final ICECarCreateValidator icecarCreateValidator;
     private final ICECarUpdateValidator icecarUpdateValidator;

@@ -16,7 +16,12 @@ $BODY$
         INSERT INTO charging(id, charge_date, car_id)
         VALUES (1, '2023-10-29', 2),
                (2, '2023-10-30', 2),
-               (3, '2023-10-31', 1);
+               (3, '2023-10-31', 1),
+               (4, '2023-11-02', 3);
+
+        INSERT INTO defect(id, name, car_id)
+        VALUES (1, 'Поцарапан бампер', 2);
+
 
         INSERT INTO dictionary(id, name, dictionary_type)
         VALUES (1, '1.5T', 'engine_volume'),
@@ -28,7 +33,25 @@ $BODY$
                (7, 'H6', 'car_model'),
                (8, 'Dargo', 'car_model'),
                (9, '300', 'car_model'),
-               (10, '500', 'car_model');
+               (10, '500', 'car_model'),
+               (11, 'Comfort', 'spec'),
+               (12, 'Elite', 'spec'),
+               (13, 'Premium', 'spec'),
+               (14, 'Tech Plus', 'spec'),
+               (15, 'White', 'exterior_color'),
+               (16, 'Black', 'exterior_color'),
+               (17, 'Blue', 'exterior_color'),
+               (18, 'Red', 'exterior_color'),
+               (19, 'Grey', 'exterior_color'),
+               (20, 'Brown', 'exterior_color'),
+               (21, 'Gold', 'exterior_color'),
+               (22, 'Green', 'exterior_color'),
+               (23, 'Orange', 'exterior_color'),
+               (24, 'Black', 'interior_color'),
+               (25, 'White', 'interior_color'),
+               (26, 'Red/Black', 'interior_color'),
+               (27, 'Brown/Black', 'interior_color'),
+               (27, 'Orange/Black', 'interior_color');
     END
 
 $BODY$ LANGUAGE plpgsql;

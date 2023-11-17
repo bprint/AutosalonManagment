@@ -2,7 +2,11 @@ package com.talas.autosalonmanagment.services;
 
 import com.talas.autosalonmanagment.model.reference.Charging;
 
-public interface CharghingsService {
+import java.util.List;
+
+public interface ChargingsService {
+
+    List<Charging> findAll();
 
     void add(Charging charging);
 
